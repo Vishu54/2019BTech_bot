@@ -7,7 +7,7 @@ import sqlite3
 conn = sqlite3.connect('2019BTech.db')
 
 # GLOBAL VARIABLES
-TOKEN = '1339677313:AAG7-gIgNOIvyjFJM940MzkVU_Qz8BEgeYU'
+TOKEN = '1339677313:AAGTgoiWc74bu-7Z2AbC01XAF5Dpq1FczD0'
 URL = f"https://api.telegram.org/bot{TOKEN}/"
 CSR = conn.cursor()
 
@@ -53,9 +53,14 @@ def sendMessage(text, chat_id):
 # GET THE CHAT ID
 def getChatId_Text(update):
     for update in update["result"]:
-        text = update["message"]["text"]
+        try:
+            text = update["message"]["text"]
+        except:
+            text = "PLEASE DONOT SEND AUDIO VIDEO AND PICTURE TO THE BOT"
+        finally:
+            pass
         chat = update["message"]["chat"]["id"]
-        return text, chat
+    return text, chat
 
 
 # SEARCHING FOR THE QUERY AND CALLING THE SEND MESSAGE FUNCTION
@@ -63,7 +68,7 @@ def getQuery(update):
     txt = ''
     text, chat = getChatId_Text(update)
     if text == "/start":
-        txt = 'Welcome to ITER BTech2019 bot\nType the name or registration number of your classmate\nand get details about them'
+        txt = 'Welcome to ITER BTech2019 bot\nType the name or registration number of your classmate\nand get details about them\n\nPLEASE DONOT SEND ANY IMAGE AND VIDEO TO THE BOT'
         sendMessage(txt, chat)
         return
     text = text.upper()
@@ -81,6 +86,7 @@ def getQuery(update):
     for regd, name, sec, mob in data:
         txt = f'REGISTRATION NO - {regd}\nNAME - {name}\nSECTION - {sec}\nMOBILE - {mob}'
         sendMessage(txt, chat)
+
 
 
 # DRIVER CODE
