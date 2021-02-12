@@ -7,7 +7,7 @@ import sqlite3
 conn = sqlite3.connect('2019BTech.db')
 
 # GLOBAL VARIABLES
-TOKEN = '1339677313:AAGTgoiWc74bu-7Z2AbC01XAF5Dpq1FczD0'
+TOKEN = ''
 URL = f"https://api.telegram.org/bot{TOKEN}/"
 CSR = conn.cursor()
 
